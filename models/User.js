@@ -11,7 +11,51 @@ class User extends Model {
 }
 
 // create fields / columns for User models
-// set up beforeCreate lifecycle "hook" functionality
-// setup beforeUpdate lifecycle "hook" functionality
+User.init(
+  {
+    id: {
+      type: DataType.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_name: {
+      type: DataType.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataType.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataType.STRING,
+      allowNull: false,
+    },
+  },
+  // set up beforeCreate lifecycle "hook" functionality with async await
+  {
+    hooks: {
+      async beforeCreate(newUserData) {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      // setup beforeUpdate lifecycle "hook" functionality with async await
+      async beforeUpdate(updatedUserData) {
+        updatedUserData.password = await bcrypt.hash(
+          updatedUserData.password,
+          10
+        );
+        return updatedUserData;
+      },
+    },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "user",
+  }
+);
 // export User
 module.exports = User;
