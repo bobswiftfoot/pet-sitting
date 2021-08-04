@@ -26,10 +26,17 @@ User.init(
     email: {
       type: DataType.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataType.STRING,
       allowNull: false,
+      validate: {
+        len: [4],
+      },
     },
   },
   // set up beforeCreate lifecycle "hook" functionality with async await
@@ -48,8 +55,6 @@ User.init(
         return updatedUserData;
       },
     },
-  },
-  {
     sequelize,
     timestamps: false,
     freezeTableName: true,
