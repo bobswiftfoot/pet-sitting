@@ -20,7 +20,7 @@
                 <h1 class="pt-3">
                     <a id="title" class="navbar-brand" href="./test.html">Pet Sitting</a>
                 </h1>
-                <form class="justify-content-end">            
+                <form class="justify-content-end">
                     {{#if loggedIn}}
                     <button class="btn btn-outline-light me-2" type="button">Sign Up</button>
                     {{else}}
@@ -31,28 +31,16 @@
             </div>
         </nav>
     </header>
-    <header>
-        <h1>
-            <a href="/">Pet Sitting</a>
-        </h1>
-        <nav>
-            {{#if loggedIn}}
-            <button id="logout" class="btn-no-style">Logout</button>
-            {{else}}
-            <a href="/login">Login</a>
-        </nav>
-    </header>
     <main>
         {{{ body }}}
     </main>
-    <footer>
-        Thanks for visiting!
+    <footer id="footer" class="text-center">
+        <div class="py-2">&copy;2021 Rock$tars</div>
     </footer>
-
 </body>
 
-{{#if loggedIn}}
-<script src="/javascript/logout.js"></script>
-{{/if}}
+{{!-- {{#if loggedIn}}
+<script src="../../public/javascript/login.js"></script>
+{{/if}} --}}
 
 </html>
