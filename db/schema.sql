@@ -1,0 +1,4 @@
+-- DROP DATABASE
+DROP DATABASE IF EXISTS pet_sitting_db;
+-- CREATE DATABASE
+CREATE DATABASE pet_sitting_db;
