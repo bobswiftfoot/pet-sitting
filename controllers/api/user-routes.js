@@ -1,11 +1,29 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Pet, CareDay } = require('../../models');
 
 // GET /api/users
 router.get('/', (req, res) =>
 {
     User.findAll({
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] },
+        include: [
+            {
+                model: Pet,
+                attributes: ['id', 'pet_name'],
+                include: [
+                    {
+                        model: CareDay,
+                        as: 'requested_care_days',
+                        attributes: ['id']
+                    }
+                ]
+            },
+            {
+                model: CareDay,
+                as: 'sitting_days',
+                attributes: ['id']
+            }
+        ]
     })
         .then(dbUserData => res.json(dbUserData))
         .catch(err =>
