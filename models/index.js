@@ -3,19 +3,33 @@ const Pet = require("./Pet");
 const CareDay = require("./CareDay");
 
 User.hasMany(Pet, {
+  as: 'owner',
   foreignKey: "user_id",
 });
+
 Pet.belongsTo(User, {
+  as: 'owner',
   foreignKey: "user_id",
 });
-User.belongsToMany(CareDay, {
-  through: Pet,
-  // how do I connect to scheduled days? Should I add this in the model?
-  as: "scheduled_days",
-  foreignKey: "user_id",
-});
-CareDay.belongsTo(Pet, {
+
+Pet.hasMany(CareDay, {
+  as: 'requested_care_days',
   foreignKey: "pet_id",
+});
+
+CareDay.belongsTo(Pet, {
+  as: 'requested_care_days',
+  foreignKey: "pet_id",
+});
+
+User.hasMany(CareDay, {
+  as: 'sitting_days',
+  foreignKey: "user_id",
+});
+
+CareDay.belongsTo(User, {
+  as: 'sitting_days',
+  foreignKey: "user_id",
 });
 
 module.exports = { User, Pet, CareDay };
