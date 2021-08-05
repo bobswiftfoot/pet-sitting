@@ -4,31 +4,107 @@ const { Pet } = require('../../models');
 // GET /api/pets
 router.get('/', (req, res) =>
 {
-    //TODO: Get all Pets from database    
+    Pet.findAll()
+        .then(dbPetData => res.json(dbPetData))
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // GET /api/pets/1
 router.get('/:id', (req, res) =>
 {
-    //TODO: GET 1 pet by Id
+    Pet.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbPetData => 
+        {
+            if (!dbPetData)
+            {
+                res.status(404).json({ message: 'No pet found with this id' });
+                return;
+            }
+            res.json(dbPetData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // POST /api/pets
 router.post('/', (req, res) =>
 {
-    //TODO: Create a pet
+    /* expects 
+    {
+        pet_name: 'doggie', 
+        user_id: 1 
+    }*/
+    Pet.create(req.body)
+        .then(dbPetData => res.json(dbPetData))
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // PUT /api/pets/1
 router.put('/:id', (req, res) => 
 {
-    //TODO: Update pet info
+    /* expects 
+    {
+        pet_name: 'doggie', 
+        user_id: 1 
+    }*/
+    Pet.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbPetData =>
+        {
+            if (!dbPetData[0])
+            {
+                res.status(404).json({ dbPetData: 'No pet found with this id' });
+                return;
+            }
+            res.json(dbPetData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // DELETE /api/pets/id
 router.delete('/:id', (req, res) =>
 {
-    //TODO: Delete pet
+    Pet.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbPetData =>
+        {
+            if (!dbPetData)
+            {
+                res.status(404).json({ message: 'No pet found with this id' });
+                return;
+            }
+            res.json(dbPetData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;
