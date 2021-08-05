@@ -1,6 +1,6 @@
 const { CareDay } = require("../models");
 
-const CareDayData = [
+const careDayData = [
   {
     pet_id: 2,
   },
