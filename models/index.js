@@ -8,12 +8,12 @@ User.hasMany(Pet, {
 Pet.belongsTo(User, {
   foreignKey: "user_id",
 });
-User.belongsToMany(CareDay, {
-  through: Pet,
-  // how do I connect to scheduled days? Should I add this in the model?
-  as: "scheduled_days",
-  foreignKey: "user_id",
-});
+// User.belongsToMany(CareDay, {
+//   through: Pet,
+//   // how do I connect to scheduled days? Should I add this in the model?
+//   as: "scheduled_days",
+//   foreignKey: "user_id",
+// });
 CareDay.belongsTo(Pet, {
   foreignKey: "pet_id",
 });

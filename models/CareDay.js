@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const Sequelize = require("../config/connection");
+const sequelize = require("../config/connection");
 
 // Create CareDay model
 class CareDay extends Model {}
