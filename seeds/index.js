@@ -1,6 +1,6 @@
 const seedUsers = require("./user-seeds");
 const seedPet = require("./pet-seeds");
-const seedCareDay = require("./care-day");
+const seedCareDay = require("./care-day-seeds");
 
 const sequelize = require("../config/connection");
 
