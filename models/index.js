@@ -1,12 +1,18 @@
 const User = require("./User");
 const Pet = require("./Pet");
 const CareDay = require("./CareDay");
+const Comment = require("./Comment");
+const Post = require("./Post");
 
 User.hasMany(Pet, {
   foreignKey: "user_id",
 });
 
 Pet.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+Post.belongsTo(User, {
   foreignKey: "user_id",
 });
 
@@ -26,4 +32,16 @@ CareDay.belongsTo(User, {
   foreignKey: "user_id",
 });
 
-module.exports = { User, Pet, CareDay };
+Comment.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+Comment.belongsTo(Post, {
+  foreignKey: "post_id",
+});
+
+Post.hasMany(Comment, {
+  foreignKey: "post_id",
+});
+
+module.exports = { User, Pet, CareDay, Comment, Post };
