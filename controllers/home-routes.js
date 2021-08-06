@@ -20,14 +20,15 @@ router.get('/login', (req, res) =>
 
 router.get('/profile', withAuth, (req, res) =>
 {   
-    User.findOne({
+    User.findAll({
         where: {
-            user_id: req.session.user_id
+            id: req.session.user_id
         }, 
         attributes: { exclude: ['password'] },
         include: [
             {
                 model: Pet,
+                as: 'pets',
                 attributes: ['id', 'pet_name'],
                 include: [
                     {
@@ -47,8 +48,12 @@ router.get('/profile', withAuth, (req, res) =>
     .then(dbUserData =>
     {
         const user = dbUserData.map(user => user.get({ plain: true }));
-        console.log(user);
         res.render('profile', { user, loggedIn: req.session.loggedIn });
+    })
+    .catch(err =>
+    {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 

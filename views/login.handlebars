@@ -1,51 +1,53 @@
 <div class="container-fluid">
     <div id="forms" class="row justify-content-around px-5">
         <div id="sign-in" class="col-md-4 mb-3">
-            <form class="py-4">
+            <form class="py-4 login-form">
                 <h1 class="text-center">WELCOME BACK!</h1>
                 <h1 class="text-center">Login:</h1>
                 <div class="mb-3 row py-3">
-                    <label for="staticEmail" class="col-md-4 col-form-label">Email</label>
+                    <label for="login-email" class="col-md-4 col-form-label">Email</label>
                     <div class="col-md-8">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="mb-3 row  py-3">
-                    <label for="inputPassword" class="col-md-4 col-form-label">Password</label>
+                    <label for="login-password" class="col-md-4 col-form-label">Password</label>
                     <div class="col-md-8">
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" id="login-password">
                     </div>
                 </div>
                 <div id="buttons">
-                    <button class="btn btn-outline-light me-2" type="button">Sign In</button>
+                    <button class="btn btn-outline-light me-2" type="submit">Log In</button>
                 </div>
             </form>
         </div>
         <div id="sign-in" class="col-md-4">
-            <form class="py-4">
+            <form class="py-4 signup-form">
                 <h1 class="text-center">JOIN US!</h1>
                 <div class="mb-3 row py-3">
-                    <label for="staticEmail" class="col-md-4 col-form-label">Username</label>
+                    <label for="signup-username" class="col-md-4 col-form-label">Username</label>
                     <div class="col-md-8">
-                        <input type="email" class="form-control" aria-describedby="emailHelp">
+                        <input type="text" class="form-control" id="signup-username">
                     </div>
                 </div>
                 <div class="mb-3 row py-3">
-                    <label for="staticEmail" class="col-md-4 col-form-label">Email</label>
+                    <label for="signup-email" class="col-md-4 col-form-label">Email</label>
                     <div class="col-md-8">
-                        <input type="email" class="form-control" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="signup-email">
                     </div>
                 </div>
                 <div class="mb-3 row py-3">
-                    <label for="inputPassword" class="col-md-4 col-form-label">Password</label>
+                    <label for="signup-password" class="col-md-4 col-form-label">Password</label>
                     <div class="col-md-8">
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" id='signup-password'>
                     </div>
                 </div>
                 <div id="buttons">
-                    <button class="btn btn-outline-light me-2" type="button">Sign Up</button>
+                    <button class="btn btn-outline-light me-2" type="submit">Sign Up</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script src="/javascript/login.js"></script>
