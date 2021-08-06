@@ -1,34 +1,127 @@
 const router = require('express').Router();
-const { CareDay } = require('../../models');
+const { CareDay, Pet, User } = require('../../models');
 
 // GET /api/caredays
 router.get('/', (req, res) =>
 {
-    //TODO: Get all caredays from database    
+    CareDay.findAll({
+        include: [
+            {
+                model: Pet,
+                as: 'requested_care_days',
+                attributes: ['id'],
+                include:
+                {
+                    model: User,
+                    as: 'owner',
+                    attributes: ['id', 'user_name', 'email']
+                }
+            },
+            {
+                model: User,
+                as: 'sitting_days',
+                attributes: ['id', 'user_name', 'email']
+            }
+        ]
+    })
+        .then(dbCareDayData => res.json(dbCareDayData))
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // GET /api/caredays/1
 router.get('/:id', (req, res) =>
 {
-    //TODO: GET 1 careday by Id
+    CareDay.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbCareDayData => 
+        {
+            if (!dbCareDayData)
+            {
+                res.status(404).json({ message: 'No care day found with this id' });
+                return;
+            }
+            res.json(dbCareDayData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // POST /api/caredays
 router.post('/', (req, res) =>
 {
-    //TODO: Create a careday
+    /* expects 
+    {
+        pet_id: 1
+    }*/
+    CareDay.create(req.body)
+        .then(dbCareDayData => res.json(dbCareDayData))
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // PUT /api/caredays/1
 router.put('/:id', (req, res) => 
 {
-    //TODO: Update careday info
+    /* expects 
+    {
+        pet_id: 1
+    }*/
+    CareDay.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbCareDayData =>
+        {
+            if (!dbCareDayData[0])
+            {
+                res.status(404).json({ message: 'No care day found with this id' });
+                return;
+            }
+            res.json(dbCareDayData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 // DELETE /api/caredays/id
 router.delete('/:id', (req, res) =>
 {
-    //TODO: Delete careday
+    CareDay.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbCareDayData =>
+        {
+            if (!dbCareDayData)
+            {
+                res.status(404).json({ message: 'No care day found with this id' });
+                return;
+            }
+            res.json(dbCareDayData);
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;

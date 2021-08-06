@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-// Create CareDay model
-class CareDay extends Model {}
+// create Post model
+class Post extends Model {}
 
-// create fields/columns for CareDay models
-CareDay.init(
+// set up columns
+Post.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,15 +13,17 @@ CareDay.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    pet_id: {
-      type: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
       allowNull: false,
-      references: {
-        model: "pet",
-        key: "id",
+    },
+    post_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isURL: true,
       },
     },
-    // sitter id through user model
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -29,13 +31,18 @@ CareDay.init(
         key: "id",
       },
     },
+    post_body: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: "care_day",
+    modelName: "post",
   }
 );
-// export CareDay model
-module.exports = CareDay;
+
+// export Post model
+module.exports = Post;

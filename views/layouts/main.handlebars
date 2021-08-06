@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Style+Script:regular" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,regular,italic,700,700italic"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../../public/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
@@ -18,14 +18,14 @@
         <nav id="header" class="navbar navbar-dark bg-dark">
             <div id="nav-image" class="container-fluid">
                 <h1 class="pt-3">
-                    <a id="title" class="navbar-brand" href="./test.html">Pet Sitting</a>
+                    <a id="title" class="navbar-brand" href="/">Pet Sitting</a>
                 </h1>
                 <form class="justify-content-end">
                     {{#if loggedIn}}
-                    <button class="btn btn-outline-light me-2" type="button">Sign Up</button>
+                    <button class="btn btn-outline-light me-2" id="logout" type="button">Log Out</button>
                     {{else}}
-                    <button class="btn btn-outline-light me-2" type="button">Sign Up</button>
-                    <button class="btn btn-outline-light me-2" type="button">Login</button>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/login'" type="button">Sign Up</button>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/login'" type="button">Login</button>
                     {{/if}}
                 </form>
             </div>
@@ -39,8 +39,8 @@
     </footer>
 </body>
 
-{{!-- {{#if loggedIn}}
-<script src="../../public/javascript/login.js"></script>
-{{/if}} --}}
+{{#if loggedIn}}
+<script src="/javascript/logout.js"></script>
+{{/if}}
 
 </html>
