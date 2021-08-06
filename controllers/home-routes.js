@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
+const { User, Pet, CareDay } = require('../models');
+const withAuth = require('../utils/auth');
 
 router.get('/', (req, res) =>
 {
@@ -17,25 +18,42 @@ router.get('/login', (req, res) =>
     res.render('login',{ loggedIn: req.session.loggedIn });
 });
 
-router.get('/profile', (req, res) =>
-{
-    if (!req.session.loggedIn)
+router.get('/profile', withAuth, (req, res) =>
+{   
+    User.findOne({
+        where: {
+            user_id: req.session.user_id
+        }, 
+        attributes: { exclude: ['password'] },
+        include: [
+            {
+                model: Pet,
+                attributes: ['id', 'pet_name'],
+                include: [
+                    {
+                        model: CareDay,
+                        as: 'requested_care_days',
+                        attributes: ['id']
+                    }
+                ]
+            },
+            {
+                model: CareDay,
+                as: 'sitting_days',
+                attributes: ['id']
+            }
+        ]
+    })
+    .then(dbUserData =>
     {
-        res.redirect('/');
-        return;
-    }
-
-    res.render('profile', { loggedIn: req.session.loggedIn });
+        const user = dbUserData.map(user => user.get({ plain: true }));
+        console.log(user);
+        res.render('profile', { user, loggedIn: req.session.loggedIn });
+    });
 });
 
-router.get('/calendar', (req, res) =>
+router.get('/calendar', withAuth, (req, res) =>
 {
-    if (!req.session.loggedIn)
-    {
-        res.redirect('/');
-        return;
-    }
-
     res.render('calendar' ,{ loggedIn: req.session.loggedIn });
 });
 
