@@ -1,11 +1,29 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Pet, CareDay } = require('../../models');
 
 // GET /api/users
 router.get('/', (req, res) =>
 {
     User.findAll({
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] },
+        include: [
+            {
+                model: Pet,
+                attributes: ['id', 'pet_name'],
+                include: [
+                    {
+                        model: CareDay,
+                        as: 'requested_care_days',
+                        attributes: ['id']
+                    }
+                ]
+            },
+            {
+                model: CareDay,
+                as: 'sitting_days',
+                attributes: ['id']
+            }
+        ]
     })
         .then(dbUserData => res.json(dbUserData))
         .catch(err =>
@@ -62,13 +80,52 @@ router.post('/', (req, res) =>
 // POST /api/users/login
 router.post('/login', (req, res) =>
 {
-    //TODO: Login
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(dbUserData =>
+    {
+        if (!dbUserData)
+        {
+            res.status(400).json({ message: 'No user with that email address!' });
+            return;
+        }
+
+        const validPassword = dbUserData.checkPassword(req.body.password);
+
+        if (!validPassword)
+        {
+            res.status(400).json({ message: 'Incorrect password!' });
+            return;
+        }
+
+        req.session.save(() =>
+        {
+            // declare session variables
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.user_name;
+            req.session.loggedIn = true;
+
+            res.json({ user: dbUserData, message: 'You are now logged in!' });
+        });
+    });
 });
 
 // POST /api/users/logout
 router.post('/logout', (req, res) =>
 {
-    //TODO: Logout
+    if (req.session.loggedIn)
+    {
+        req.session.destroy(() =>
+        {
+            res.status(204).end();
+        });
+    }
+    else
+    {
+        res.status(404).end();
+    }
 });
 
 // PUT /api/users/1

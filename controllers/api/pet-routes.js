@@ -1,10 +1,24 @@
 const router = require('express').Router();
-const { Pet } = require('../../models');
+const { Pet, CareDay, User } = require('../../models');
 
 // GET /api/pets
 router.get('/', (req, res) =>
 {
-    Pet.findAll()
+    Pet.findAll(
+        {
+            include: [
+                {
+                    model: CareDay,
+                    as: 'requested_care_days',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'owner',
+                    attributes: ['id', 'user_name', 'email']
+                }
+            ]
+        })
         .then(dbPetData => res.json(dbPetData))
         .catch(err =>
         {
