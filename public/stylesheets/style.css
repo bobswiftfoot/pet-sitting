@@ -3,6 +3,10 @@ body {
     background-color: rgb(201, 201, 201);
 }
 
+main {
+    height: 100vh;
+}
+
 #title {
     color: white;
     font-family: "Style Script";
@@ -13,6 +17,8 @@ body {
     background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
 
 }
+
+/* homepage */
 
 #small-article {
     background-image: url("https://ak.picdn.net/shutterstock/videos/1937653/thumb/1.jpg");
@@ -35,4 +41,30 @@ body {
 #footer {
     background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
     color: white;
+}
+
+/* login page */
+
+#forms {
+    margin-top: 200px;
+}
+
+#sign-in {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#sign-in {
+    background-color: rgba(0, 13, 73, 0.7);
+    padding: 20px;
+    color: white;
+    border: solid 3px var(--secondary-color);
+    width: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
 }
