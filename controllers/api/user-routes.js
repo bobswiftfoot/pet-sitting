@@ -9,6 +9,7 @@ router.get('/', (req, res) =>
         include: [
             {
                 model: Pet,
+                as: 'pets',
                 attributes: ['id', 'pet_name'],
                 include: [
                     {
