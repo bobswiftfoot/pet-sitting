@@ -24,6 +24,18 @@ Pet.init(
         key: "id",
       },
     },
+    pet_animal: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pet_breed: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    picture_file_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,
