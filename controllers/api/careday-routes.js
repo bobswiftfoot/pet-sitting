@@ -38,7 +38,25 @@ router.get('/:id', (req, res) =>
     CareDay.findOne({
         where: {
             id: req.params.id
-        }
+        },
+        include: [
+            {
+                model: Pet,
+                as: 'requested_care_days',
+                attributes: ['id'],
+                include:
+                {
+                    model: User,
+                    as: 'owner',
+                    attributes: ['id', 'user_name', 'email']
+                }
+            },
+            {
+                model: User,
+                as: 'sitting_days',
+                attributes: ['id', 'user_name', 'email']
+            }
+        ]
     })
         .then(dbCareDayData => 
         {
