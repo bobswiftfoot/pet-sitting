@@ -62,4 +62,14 @@ router.get('/calendar', withAuth, (req, res) =>
     res.render('calendar' ,{ loggedIn: req.session.loggedIn });
 });
 
+router.get('/edit-post', withAuth, (req, res) =>
+{
+    res.render('edit-post' ,{ loggedIn: req.session.loggedIn });
+});
+
+router.get('/single-post', withAuth, (req, res) =>
+{
+    res.render('single-post' ,{ loggedIn: req.session.loggedIn });
+});
+
 module.exports = router;
