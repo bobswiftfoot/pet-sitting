@@ -9,25 +9,72 @@
                     <h1 class="card-title pb-4">USERNAME</h1>
                     <h3 class="card-title pb-1">Email: email@email.com</h3>
                     <h3 class="card-title pb-5">My Pets: "pets" </h3>
-                    <button class="btn btn-outline-dark me-2" type="button">Add another pet!</button>
+                    <!-- Button to add pet and trigger modal -->
+
+                    <form class="justify-content-start">
+                        <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Add a Pet!</button>
+
+
+                        <!-- Upload a Pet Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title" id="exampleModalLabel">New Pet!
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>Pet Name:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Pet Name"
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div></br>
+                                        <h3>Animal Type:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Animal"
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div></br>
+                                        <h3>Pet Breed:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Breed"
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div></br>
+                                        <h3>Fun Fact:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Fact"
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div></br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-dark">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-                <div class="card mb-3 mx-auto" style="max-width: 75%;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="https://picsum.photos/id/200/400/300" class="img-fluid rounded-start"
-                            alt="pet picture">
-                    </div>
-                    <div id="learn-more" class="col-md-8">
-                        <div class="card-body">
-                            <h1 class="card-title">PET NAME</h1>
-                            <h3 class="card-title pb-1">Animal Type: animal</h3>
-                            <h3 class="card-title pb-1">Breed: breed</h3>
-                            <h3 class="card-title pb-3">Fun Fact: fact</h3>
-                        </div>
-                    </div>
+    <div class="card mb-3 mx-auto" style="max-width: 75%;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://picsum.photos/id/200/400/300" class="img-fluid rounded-start" alt="pet picture">
+            </div>
+            <div id="learn-more" class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">PET NAME</h1>
+                    <h3 class="card-title pb-1">Animal Type: animal</h3>
+                    <h3 class="card-title pb-1">Breed: breed</h3>
+                    <h3 class="card-title pb-3">Fun Fact: fact</h3>
                 </div>
             </div>
+        </div>
+    </div>
 </conatiner>
