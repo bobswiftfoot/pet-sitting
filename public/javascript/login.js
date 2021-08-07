@@ -23,6 +23,10 @@ async function signupFormHandler(event)
         {
             document.location.replace('/profile');
         }
+        else if(response.status == 401)
+        {
+            alert("Email is already registered.");
+        }
         else
         {
             alert(response.statusText);
