@@ -1,25 +1,23 @@
 const router = require('express').Router();
-const { Pet, CareDay, User } = require('../../models');
+const { Post, Comment, User } = require('../../models');
 
-// GET /api/pets
+// GET /api/comments
 router.get('/', (req, res) =>
 {
-    Pet.findAll(
+    Comment.findAll(
         {
             include: [
                 {
-                    model: CareDay,
-                    as: 'requested_care_days',
-                    attributes: ['id', 'day_of_care', 'type_of_care']
+                    model: User,
+                    attributes: ['user_name']
                 },
                 {
-                    model: User,
-                    as: 'owner',
-                    attributes: ['id', 'user_name', 'email']
+                    model: Post,
+                    attributes: ['post_id', 'title']
                 }
             ]
         })
-        .then(dbPetData => res.json(dbPetData))
+        .then(dbCommentData => res.json(dbCommentData))
         .catch(err =>
         {
             console.log(err);
@@ -27,34 +25,32 @@ router.get('/', (req, res) =>
         });
 });
 
-// GET /api/pets/1
+// GET /api/comments/1
 router.get('/:id', (req, res) =>
 {
-    Pet.findOne({
+    Comment.findOne({
         where: {
             id: req.params.id
         },
         include: [
             {
-                model: CareDay,
-                as: 'requested_care_days',
-                attributes: ['id', 'day_of_care', 'type_of_care']
+                model: User,
+                attributes: ['user_name']
             },
             {
-                model: User,
-                as: 'owner',
-                attributes: ['id', 'user_name', 'email']
+                model: Post,
+                attributes: ['post_id', 'title']
             }
         ]
     })
-        .then(dbPetData => 
+        .then(dbCommentData => 
         {
-            if (!dbPetData)
+            if (!dbCommentData)
             {
-                res.status(404).json({ message: 'No pet found with this id' });
+                res.status(404).json({ message: 'No comment found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbCommentData);
         })
         .catch(err =>
         {
@@ -63,16 +59,17 @@ router.get('/:id', (req, res) =>
         });
 });
 
-// POST /api/pets
+// POST /api/comments
 router.post('/', (req, res) =>
 {
     /* expects 
     {
-        pet_name: 'doggie', 
-        user_id: 1 
+        text: 'Something witty'
+        user_id: 1
+        post_id: 1
     }*/
-    Pet.create(req.body)
-        .then(dbPetData => res.json(dbPetData))
+    Comment.create(req.body)
+        .then(dbCommentData => res.json(dbCommentData))
         .catch(err =>
         {
             console.log(err);
@@ -80,27 +77,28 @@ router.post('/', (req, res) =>
         });
 });
 
-// PUT /api/pets/1
+// PUT /api/comments/1
 router.put('/:id', (req, res) => 
 {
     /* expects 
     {
-        pet_name: 'doggie', 
-        user_id: 1 
+        text: 'Something witty'
+        user_id: 1
+        post_id: 1
     }*/
-    Pet.update(req.body, {
+    Comment.update(req.body, {
         where: {
             id: req.params.id
         }
     })
-        .then(dbPetData =>
+        .then(dbCommentData =>
         {
-            if (!dbPetData[0])
+            if (!dbCommentData[0])
             {
-                res.status(404).json({ dbPetData: 'No pet found with this id' });
+                res.status(404).json({ dbCommentData: 'No comment found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbCommentData);
         })
         .catch(err =>
         {
@@ -109,22 +107,22 @@ router.put('/:id', (req, res) =>
         });
 });
 
-// DELETE /api/pets/id
+// DELETE /api/comments/id
 router.delete('/:id', (req, res) =>
 {
-    Pet.destroy({
+    Comment.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbPetData =>
+        .then(dbCommentData =>
         {
-            if (!dbPetData)
+            if (!dbCommentData)
             {
-                res.status(404).json({ message: 'No pet found with this id' });
+                res.status(404).json({ message: 'No comment found with this id' });
                 return;
             }
-            res.json(dbPetData);
+            res.json(dbCommentData);
         })
         .catch(err =>
         {

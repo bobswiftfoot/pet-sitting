@@ -15,14 +15,14 @@ router.get('/', (req, res) =>
                     {
                         model: CareDay,
                         as: 'requested_care_days',
-                        attributes: ['id']
+                        attributes: ['id', 'day_of_care', 'type_of_care']
                     }
                 ]
             },
             {
                 model: CareDay,
                 as: 'sitting_days',
-                attributes: ['id']
+                attributes: ['id', 'day_of_care', 'type_of_care']
             }
         ]
     })
@@ -41,7 +41,26 @@ router.get('/:id', (req, res) =>
         attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
-        }
+        },
+        include: [
+            {
+            model: Pet,
+            as: 'pets',
+            attributes: ['id', 'pet_name'],
+            include: [
+                {
+                    model: CareDay,
+                    as: 'requested_care_days',
+                    attributes: ['id', 'day_of_care', 'type_of_care']
+                }
+                ]
+            },
+            {
+                model: CareDay,
+                as: 'sitting_days',
+                attributes: ['id', 'day_of_care', 'type_of_care']
+            }
+        ]
     })
         .then(dbUserData => 
         {
@@ -74,7 +93,10 @@ router.post('/', (req, res) =>
         .catch(err =>
         {
             console.log(err);
-            res.status(500).json(err);
+            if(err.parent.code == "ER_DUP_ENTRY")
+                res.status(401).json(err);
+            else
+                res.status(500).json(err);
         });
 });
 
