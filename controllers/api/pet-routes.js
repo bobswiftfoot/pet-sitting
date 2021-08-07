@@ -10,7 +10,7 @@ router.get('/', (req, res) =>
                 {
                     model: CareDay,
                     as: 'requested_care_days',
-                    attributes: ['id']
+                    attributes: ['id', 'day_of_care', 'type_of_care']
                 },
                 {
                     model: User,
@@ -33,7 +33,19 @@ router.get('/:id', (req, res) =>
     Pet.findOne({
         where: {
             id: req.params.id
-        }
+        },
+        include: [
+            {
+                model: CareDay,
+                as: 'requested_care_days',
+                attributes: ['id', 'day_of_care', 'type_of_care']
+            },
+            {
+                model: User,
+                as: 'owner',
+                attributes: ['id', 'user_name', 'email']
+            }
+        ]
     })
         .then(dbPetData => 
         {
