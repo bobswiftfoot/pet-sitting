@@ -74,7 +74,10 @@ router.post('/', (req, res) =>
         .catch(err =>
         {
             console.log(err);
-            res.status(500).json(err);
+            if(err.parent.code == "ER_DUP_ENTRY")
+                res.status(401).json(err);
+            else
+                res.status(500).json(err);
         });
 });
 
