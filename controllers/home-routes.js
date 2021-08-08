@@ -47,7 +47,7 @@ router.get('/profile', withAuth, (req, res) =>
     })
     .then(dbUserData =>
     {
-        const user = dbUserData.map(user => user.get({ plain: true }));
+        const user = dbUserData.map(user => user.get({ plain: true }))[0];
         res.render('profile', { user, loggedIn: req.session.loggedIn });
     })
     .catch(err =>

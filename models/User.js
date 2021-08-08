@@ -38,6 +38,9 @@ User.init(
         len: [4],
       },
     },
+    profileFile: {
+      type: DataTypes.STRING,
+    }
   },
   // set up beforeCreate lifecycle "hook" functionality
   {

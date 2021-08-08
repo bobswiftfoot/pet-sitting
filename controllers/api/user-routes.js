@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const fs = require('fs');
 const { User, Pet, CareDay } = require('../../models');
 
 // GET /api/users
@@ -44,15 +45,15 @@ router.get('/:id', (req, res) =>
         },
         include: [
             {
-            model: Pet,
-            as: 'pets',
-            attributes: ['id', 'pet_name'],
-            include: [
-                {
-                    model: CareDay,
-                    as: 'requested_care_days',
-                    attributes: ['id', 'day_of_care', 'type_of_care']
-                }
+                model: Pet,
+                as: 'pets',
+                attributes: ['id', 'pet_name'],
+                include: [
+                    {
+                        model: CareDay,
+                        as: 'requested_care_days',
+                        attributes: ['id', 'day_of_care', 'type_of_care']
+                    }
                 ]
             },
             {
@@ -93,7 +94,7 @@ router.post('/', (req, res) =>
         .catch(err =>
         {
             console.log(err);
-            if(err.parent.code == "ER_DUP_ENTRY")
+            if (err.parent.code == "ER_DUP_ENTRY")
                 res.status(401).json(err);
             else
                 res.status(500).json(err);
@@ -204,6 +205,70 @@ router.delete('/:id', (req, res) =>
             console.log(err);
             res.status(500).json(err);
         });
+});
+
+router.post('/upload/:id', (req, res) =>
+{
+    //Check to see if any files were sent
+    if (!req.files || Object.keys(req.files).length === 0) 
+    {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    //Create the upload path
+    let profileFile = req.files.profileFile;
+    let uploadPath = __dirname.replace("controllers\\api", "");
+    uploadPath += `public\\uploads\\${req.params.id}\\`;
+
+    //Remove the previous directory and pictures so we don't fill up the server
+    fs.rmdir(uploadPath, { recursive:true }, (err) =>
+    {
+        if (err)
+        {
+            console.log(err);
+            return res.status(500).send(err);
+        }
+        uploadPath += profileFile.name;
+
+        // Save the picture
+        profileFile.mv(uploadPath, function (err) 
+        {
+            if (err)
+            {
+                console.log(err);
+                return res.status(500).send(err);
+            }
+
+            //Save the file name to the database
+            User.update(
+                {
+                    profileFile: profileFile.name
+                },
+                {
+                    where:
+                    {
+                        id: req.params.id
+                    }
+                })
+                .then(dbUserData =>
+                {
+                    console.log(dbUserData);
+                    if (!dbUserData[0])
+                    {
+                        res.status(404).json({ message: 'No user found with this id' });
+                        return;
+                    }
+                    //Return to the profile page
+                    res.redirect('/profile');
+                })
+                .catch(err =>
+                {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+        });
+    });
+
 });
 
 module.exports = router;
