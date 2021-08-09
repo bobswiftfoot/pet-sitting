@@ -59,7 +59,37 @@ router.get('/profile', withAuth, (req, res) =>
 
 router.get('/calendar', withAuth, (req, res) =>
 {
-    res.render('calendar' ,{ loggedIn: req.session.loggedIn });
+    CareDay.findAll({
+        include: [
+            {
+                model: Pet,
+                as: 'requested_care_days',
+                attributes: ['id', 'pet_name'],
+                include:
+                {
+                    model: User,
+                    as: 'owner',
+                    attributes: ['id', 'user_name', 'email']
+                }
+            },
+            {
+                model: User,
+                as: 'sitting_days',
+                attributes: ['id', 'user_name', 'email']
+            }
+        ]
+    })
+        .then(dbCareDayData => 
+        {
+            const caredays = dbCareDayData.map(careday => careday.get({ plain: true }));
+            console.log(caredays);
+            res.render('calendar' ,{ caredays, loggedIn: req.session.loggedIn });
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 router.get('/edit-post', withAuth, (req, res) =>

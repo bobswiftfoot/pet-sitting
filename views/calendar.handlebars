@@ -46,7 +46,7 @@
         <div class="row g-0">
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">Owner: {{careday.pet.user.user_name}}</p>
+                    <p class="text-center card-text">Owner: {{careday.requested_care_days.owner.user_name}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
@@ -61,13 +61,13 @@
             </div>
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">Pet Name: {{careday.pet.pet_name}}</p>
+                    <p class="text-center card-text">Pet Name: {{careday.requested_care_days.pet_name}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
                 {{#if careday.sitter}}
                 <div class="card-body">
-                    <p class="text-center card-text">{{careday.sitter.user_name}}</p>
+                    <p class="text-center card-text">{{careday.sitting_days.user_name}}</p>
                 </div>
                 {{else}}
                 <div class="card-body">
