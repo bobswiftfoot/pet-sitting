@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Pet, CareDay } = require('../models');
+const { User, Pet, CareDay, Post, Comment } = require('../models');
 const sequelize = require('../config/connection');
 const withAuth = require('../utils/auth');
 
@@ -123,7 +123,35 @@ router.get('/single-post', withAuth, (req, res) =>
 
 router.get('/posts', withAuth, (req, res) =>
 {
-    res.render('posts' ,{ loggedIn: req.session.loggedIn });
+    Post.findAll(
+        {
+            include: [
+                {
+                    model: Comment,
+                    attributes: ['comment_text', 'created_at'],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['user_name']
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    attributes: ['user_name']
+                }
+            ]
+        })
+        .then(dbPostData => 
+        {
+            const posts = dbPostData.map(post => post.get({ plain: true }));
+            res.render('posts' ,{ posts, loggedIn: req.session.loggedIn });
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;
