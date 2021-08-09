@@ -12,7 +12,7 @@ I WANT a secure platform
 SO THAT I can find available jobs
 
 ## Deployed Website
-[Check it Out]()
+[Check it Out](https://rockstars-pet-sitter.herokuapp.com/)
 
 ![Image of Pet Sitting](screenshot.PNG)
 
