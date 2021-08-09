@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Style+Script:regular" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,regular,italic,700,700italic"
         rel="stylesheet" />
-    <link rel="stylesheet" href="./test.css">
+    <link rel="stylesheet" href="/public/stylesheets/style.css">
 </head>
 
 <body>
@@ -23,9 +23,9 @@
                     <a id="title" class="navbar-brand" href="/">Pet Sitting</a>
                 </h1>
                 <form class="justify-content-end">
-                    <button class="btn btn-outline-light me-2" id="logout" type="button">Calendar</button>
-                    <button class="btn btn-outline-light me-2" id="logout" type="button">Profile</button>
-                    <button class="btn btn-outline-light me-2" id="logout" type="button">Posts</button>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/calendar'" id="logout" type="button">Calendar</button>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profile'" id="logout" type="button">Profile</button>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/posts'" id="logout" type="button">Posts</button>
                     {{#if loggedIn}}
                     <button class="btn btn-outline-light me-2" id="logout" type="button">Log Out</button>
                     {{else}}
