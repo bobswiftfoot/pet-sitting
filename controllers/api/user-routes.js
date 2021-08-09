@@ -229,7 +229,7 @@ router.post('/upload/:id', (req, res) =>
     //Create the upload path
     let profileFile = req.files.profileFile;
     let uploadPath = __dirname.replace("controllers\\api", "");
-    uploadPath += `public\\uploads\\${req.params.id}\\`;
+    uploadPath += `public\\uploads\\users\\${req.params.id}\\`;
 
     //Remove the previous directory and pictures so we don't fill up the server
     fs.rmdir(uploadPath, { recursive:true }, (err) =>

@@ -3,7 +3,7 @@
         <div class="row g-0">
             <div class="col-md-4">
                 {{#if user.profileFile}}
-                <img src="./uploads/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
+                <img src="./uploads/users/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
                     alt="profile picture">
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
@@ -15,39 +15,40 @@
                     <h3 class="card-title pb-1">Email: {{user.email}}</h3>
                     <h3 class="card-title pb-5">My Pets: {{#each user.pets as |pet| }}
                         {{pet.pet_name}}{{/each}}</h3>
+
                     <!-- Button to add pet and trigger modal -->
-
                     <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Add a Pet!</button>
-
+                        data-bs-target="#uploadPeteModal">Add a Pet!</button>
 
                     <!-- Upload a Pet Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="uploadPeteModal" tabindex="-1" aria-labelledby="uploadPeteModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title" id="exampleModalLabel">New Pet!
+                                    <h1 class="modal-title" id="uploadPeteModalLabel">New Pet!
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form class="justify-content-start">
+                                <form class="justify-content-start" ref='uploadForm' id='uploadForm' action='/api/pets/'
+                                    method='post' encType="multipart/form-data">
                                     <div class="modal-body">
+                                        <input type="hidden" name="user_id" value="{{user.id}}">
                                         <h3>Pet Name:</h3>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Pet Name"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_name">
                                         </div></br>
                                         <h3>Animal Type:</h3>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Animal"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_animal">
                                         </div></br>
                                         <h3>Pet Breed:</h3>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Breed"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_breed">
                                         </div></br>
                                         {{!-- <h3>Fun Fact:</h3>
                                         <div class="input-group mb-3">
@@ -56,14 +57,13 @@
                                         </div></br> --}}
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Upload a file</label>
-                                            <input class="form-control" type="file" id="formFile" name="petProfileFile">
+                                            <input class="form-control" type="file" id="formFile" name="picture_file_name">
                                         </div>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-dark">Save changes</button>
+                                        <button type="submit" class="btn btn-dark">Save changes</button>
                                     </div>
                                 </form>
                             </div>
@@ -72,7 +72,6 @@
 
                     <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
                         data-bs-target="#profileModal">Edit Profile Photo</button>
-
 
                     <!-- Upload Photo Modal -->
                     <div class="modal fade" id="profileModal" tabindex="-2" aria-labelledby="profileModalLabel"
@@ -102,7 +101,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -112,12 +110,11 @@
         <div class="row g-0">
             <div class="col-md-4">
                 {{#if pet.picture_file_name}}
-                <img src="./uploads/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
+                <img src="./uploads/pets/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
                     alt="pet picture">
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
-
             </div>
             <div id="learn-more" class="col-md-8">
                 <div class="card-body">

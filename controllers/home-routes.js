@@ -30,7 +30,7 @@ router.get('/profile', withAuth, (req, res) =>
             {
                 model: Pet,
                 as: 'pets',
-                attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed'],
+                attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed', 'picture_file_name'],
                 include: [
                     {
                         model: CareDay,
@@ -119,6 +119,11 @@ router.get('/edit-post', withAuth, (req, res) =>
 router.get('/single-post', withAuth, (req, res) =>
 {
     res.render('single-post' ,{ loggedIn: req.session.loggedIn });
+});
+
+router.get('/posts', withAuth, (req, res) =>
+{
+    res.render('posts' ,{ loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;
