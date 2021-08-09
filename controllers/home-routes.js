@@ -47,7 +47,7 @@ router.get('/profile', withAuth, (req, res) =>
     })
     .then(dbUserData =>
     {
-        const user = dbUserData.map(user => user.get({ plain: true }));
+        const user = dbUserData.map(user => user.get({ plain: true }))[0];
         res.render('profile', { user, loggedIn: req.session.loggedIn });
     })
     .catch(err =>
@@ -60,6 +60,16 @@ router.get('/profile', withAuth, (req, res) =>
 router.get('/calendar', withAuth, (req, res) =>
 {
     res.render('calendar' ,{ loggedIn: req.session.loggedIn });
+});
+
+router.get('/edit-post', withAuth, (req, res) =>
+{
+    res.render('edit-post' ,{ loggedIn: req.session.loggedIn });
+});
+
+router.get('/single-post', withAuth, (req, res) =>
+{
+    res.render('single-post' ,{ loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;
