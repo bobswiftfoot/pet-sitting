@@ -29,7 +29,7 @@ router.get('/profile', withAuth, (req, res) =>
             {
                 model: Pet,
                 as: 'pets',
-                attributes: ['id', 'pet_name'],
+                attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed'],
                 include: [
                     {
                         model: CareDay,
