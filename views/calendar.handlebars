@@ -9,31 +9,34 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Owner's Name</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h2>Pet's Name</h2>
-                    <input class="form-control" type="text" placeholder="Pet's Name"
-                        aria-label="default input example"></br>
-                    <h2>Care Type</h2>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">Walk</option>
-                        <option value="2">Sitting</option>
-                        <option value="3">Other</option>
-                    </select></br>
-                    <h2>Date:</h2>
-                    <div class="input-group date">
-                        <input type="text" class="form-control"><span class="input-group-addon"><i
-                                class="glyphicon glyphicon-calendar"></i></span>
+                <form class="justify-content-start" ref='uploadForm' id='uploadForm' action='/api/caredays/' method='post' encType="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Owner's Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                    <div class="modal-body">
+                        <h2>Pet's Name</h2>
+                        <select class="form-select" aria-label="Default select example" name="pet_id">
+                        {{#each user.pets as |pet|}}
+                            <option value="{{pet.id}}">{{pet.pet_name}}</option>
+                        {{/each}}
+                        </select>
+                        <h2>Care Type</h2>
+                        <select class="form-select" aria-label="Default select example" name="type_of_care">
+                            <option value="Walk">Walk</option>
+                            <option value="Sitting">Sitting</option>
+                            <option value="Other">Other</option>
+                        </select></br>
+                        <h2>Date:</h2>
+                        <div class="input-group date">
+                            <input type="date" name="day_of_care" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div></br>
@@ -51,7 +54,7 @@
             </div>
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">{{careday.day_of_care}}</p>
+                    <p class="text-center card-text">{{formatDate careday.day_of_care}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">

@@ -31,7 +31,7 @@ CareDay.init(
     },
     // day
     day_of_care: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     // type of care for

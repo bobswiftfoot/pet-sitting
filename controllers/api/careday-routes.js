@@ -82,7 +82,7 @@ router.post('/', (req, res) =>
         pet_id: 1
     }*/
     CareDay.create(req.body)
-        .then(dbCareDayData => res.json(dbCareDayData))
+        .then(() => res.redirect('/calendar'))
         .catch(err =>
         {
             console.log(err);
