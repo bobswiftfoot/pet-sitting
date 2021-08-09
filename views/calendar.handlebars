@@ -40,41 +40,51 @@
 
     <!-- Request for each pet -->
 
-    {{!-- {{#each }} --}}
     <div id="learn-more" class="card mb-3 mx-auto" style="max-width: 95%;">
+        {{#each caredays as |careday| }}
+
         <div class="row g-0">
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">Owner</p>
+                    <p class="text-center card-text">Owner: {{careday.requested_care_days.owner.user_name}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">XX/XX/XXXX</p>
+                    <p class="text-center card-text">{{careday.day_of_care}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">Care Type:</p>
+                    <p class="text-center card-text">{{careday.type_of_care}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
                 <div class="card-body">
-                    <p class="text-center card-text">Pet Name:</p>
+                    <p class="text-center card-text">Pet Name: {{careday.requested_care_days.pet_name}}</p>
                 </div>
             </div>
             <div class="col-md-2 mx-0">
+                {{#if careday.sitter}}
                 <div class="card-body">
-                    <p class="text-center card-text">Current or None</p>
+                    <p class="text-center card-text">{{careday.sitting_days.user_name}}</p>
                 </div>
+                {{else}}
+                <div class="card-body">
+                    <p class="text-center card-text">Available</p>
+                </div>
+                {{/if}}
             </div>
             <div class="col-md-2">
+                {{#unless careday.sitter}}
                 <div class="card-body d-flex justify-content-center">
                     <button class="btn btn-outline-light me-2" type="button">Volunteer!</button>
                 </div>
+                {{/unless}}
             </div>
         </div>
-    </div>
-    {{!-- {{/each }} --}}
+        {{/each}}
 
-</conatiner>
+    </div>
+
+    </container>

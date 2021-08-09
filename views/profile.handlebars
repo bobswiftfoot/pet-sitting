@@ -3,7 +3,8 @@
         <div class="row g-0">
             <div class="col-md-4">
                 {{#if user.profileFile}}
-                <img src="./uploads/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start" alt="profile picture">
+                <img src="./uploads/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
+                    alt="profile picture">
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
@@ -12,7 +13,8 @@
                 <div class="card-body">
                     <h1 class="card-title pb-4">{{user.user_name}}</h1>
                     <h3 class="card-title pb-1">Email: {{user.email}}</h3>
-                    <h3 class="card-title pb-5">My Pets: "pets" </h3>
+                    <h3 class="card-title pb-5">My Pets: {{#each user.pets as |pet| }}
+                        {{pet.pet_name}}{{/each}}</h3>
                     <!-- Button to add pet and trigger modal -->
 
                     <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
@@ -52,6 +54,11 @@
                                             <input type="text" class="form-control" placeholder="Fact"
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div></br>
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Upload a file</label>
+                                            <input class="form-control" type="file" id="formFile" name="petProfileFile">
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -72,7 +79,8 @@
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form class="justify-content-start" ref='uploadForm' id='uploadForm' action='/api/users/upload/{{user.id}}' method='post' encType="multipart/form-data">
+                                <form class="justify-content-start" ref='uploadForm' id='uploadForm'
+                                    action='/api/users/upload/{{user.id}}' method='post' encType="multipart/form-data">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="profileModalLabel">Upload a Profile Picture!
                                         </h5>
@@ -100,18 +108,26 @@
         </div>
     </div>
     <div class="card mb-3 mx-auto" style="max-width: 75%;">
+        {{#each user.pets as |pet| }}
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="https://picsum.photos/id/200/400/300" class="img-fluid rounded-start" alt="pet picture">
+                {{#if pet.picture_file_name}}
+                <img src="./uploads/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
+                    alt="pet picture">
+                {{else}}
+                <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
+                {{/if}}
+
             </div>
             <div id="learn-more" class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">PET NAME</h1>
-                    <h3 class="card-title pb-1">Animal Type: animal</h3>
-                    <h3 class="card-title pb-1">Breed: breed</h3>
-                    <h3 class="card-title pb-3">Fun Fact: fact</h3>
+                    <h1 class="card-title">{{pet.pet_name}}</h1>
+                    <h3 class="card-title pb-1">Animal Type: {{pet.pet_animal}}</h3>
+                    <h3 class="card-title pb-1">Breed: {{pet.pet_breed}}</h3>
+                    {{!-- <h3 class="card-title pb-3">Fun Fact: fact</h3> --}}
                 </div>
             </div>
         </div>
+        {{/each}}
     </div>
 </conatiner>
