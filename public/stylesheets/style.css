@@ -87,6 +87,10 @@ main {
 /* calendar page */
 
 #calendar-header {
+    background-color: rgba(0, 13, 73);
+}
+
+#calendar-header-text {
     color: white;
     text-decoration: underline;
 }
@@ -124,4 +128,8 @@ main {
     width: 30%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
+}
+
+#calendar-span {
+    padding-bottom: 0px;
 }
