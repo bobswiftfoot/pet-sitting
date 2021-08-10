@@ -14,7 +14,7 @@ SO THAT I can find available jobs
 ## Deployed Website
 [Check it Out](https://rockstars-pet-sitting.herokuapp.com/)
 
-![Image of Pet Sitting](screenshot.PNG)
+![Image of Pet Sitting](./public/img/screenshot.PNG)
 
 GIVEN a functional front and back end website deployed through Heroku
 I can sign up and login
