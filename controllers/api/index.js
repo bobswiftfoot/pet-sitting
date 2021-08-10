@@ -10,6 +10,6 @@ router.use('/users', userRoutes);
 router.use('/pets', petRoutes); 
 router.use('/caredays', caredayRoutes); 
 router.use('/posts', postRoutes); 
-router.use('/comment', commentRoutes); 
+router.use('/comments', commentRoutes); 
 
 module.exports = router;

@@ -1,11 +1,14 @@
-<ol class="post-list">
-  {{#each posts as |post|}}
-  <li>
-    {{> post-info post }}
-  </li>
-  {{/each}}
-  </ol>
+{{> post-info post }}
 
 {{> comments post.comments}}
+
+<form class="comment-form">
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+  <div>
+    <button type="submit">Add Comment</button>
+  </div>
+</form>
 
 <script src="/javascript/comment.js"></script>

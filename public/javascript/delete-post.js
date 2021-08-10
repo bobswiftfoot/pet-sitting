@@ -9,7 +9,7 @@ async function deleteFormHandler(event) {
   });
 
   if (response.ok) {
-    document.location.replace("/homepage/");
+    document.location.replace("/posts");
   } else {
     alert(response.statusText);
   }

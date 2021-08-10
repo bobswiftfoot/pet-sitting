@@ -77,11 +77,14 @@ router.post('/', (req, res) =>
     /* expects 
     {
         title: 'New Post'
-        post_url: 'Something@somthing.com'
         user_id: 1
         post_body: 'Lots of content'
     }*/
-    Post.create(req.body)
+    Post.create({
+        title: req.body.title,
+        post_body: req.body.post_body,
+        user_id: req.session.user_id
+    })
         .then(dbPostData => res.json(dbPostData))
         .catch(err =>
         {
