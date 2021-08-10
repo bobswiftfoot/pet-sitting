@@ -2,32 +2,129 @@
     <div class="card mb-3 mx-auto" style="max-width: 95%;">
         <div class="row g-0">
             <div class="col-md-4">
+                {{#if user.profileFile}}
+                <img src="./uploads/users/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
+                    alt="profile picture">
+                {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
+                {{/if}}
             </div>
             <div id="small-article" class="col-md-8 mb-0">
                 <div class="card-body">
-                    <h1 class="card-title pb-4">USERNAME</h1>
-                    <h3 class="card-title pb-1">Email: email@email.com</h3>
-                    <h3 class="card-title pb-5">My Pets: "pets" </h3>
-                    <button class="btn btn-outline-dark me-2" type="button">Add another pet!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-                <div class="card mb-3 mx-auto" style="max-width: 75%;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="https://picsum.photos/id/200/400/300" class="img-fluid rounded-start"
-                            alt="pet picture">
+                    <h1 class="card-title pb-4">{{user.user_name}}</h1>
+                    <h3 class="card-title pb-1">Email: {{user.email}}</h3>
+                    <h3 class="card-title pb-5">My Pets: {{#each user.pets as |pet| }}
+                        {{pet.pet_name}}{{/each}}</h3>
+
+                    <!-- Button to add pet and trigger modal -->
+                    <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        data-bs-target="#uploadPeteModal">Add a Pet!</button>
+
+                    <!-- Upload a Pet Modal -->
+                    <div class="modal fade" id="uploadPeteModal" tabindex="-1" aria-labelledby="uploadPeteModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="uploadPeteModalLabel">New Pet!
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form class="justify-content-start" ref='uploadForm' id='uploadForm' action='/api/pets/'
+                                    method='post' encType="multipart/form-data">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="user_id" value="{{user.id}}">
+                                        <h3>Pet Name:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Pet Name"
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_name">
+                                        </div></br>
+                                        <h3>Animal Type:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Animal"
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_animal">
+                                        </div></br>
+                                        <h3>Pet Breed:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Breed"
+                                                aria-label="Username" aria-describedby="basic-addon1" name="pet_breed">
+                                        </div></br>
+                                        {{!-- <h3>Fun Fact:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Fact"
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div></br> --}}
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Upload a file</label>
+                                            <input class="form-control" type="file" id="formFile" name="picture_file_name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-dark">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div id="learn-more" class="col-md-8">
-                        <div class="card-body">
-                            <h1 class="card-title">PET NAME</h1>
-                            <h3 class="card-title pb-1">Animal Type: animal</h3>
-                            <h3 class="card-title pb-1">Breed: breed</h3>
-                            <h3 class="card-title pb-3">Fun Fact: fact</h3>
+
+                    <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        data-bs-target="#profileModal">Edit Profile Photo</button>
+
+                    <!-- Upload Photo Modal -->
+                    <div class="modal fade" id="profileModal" tabindex="-2" aria-labelledby="profileModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form class="justify-content-start" ref='uploadForm' id='uploadForm'
+                                    action='/api/users/upload/{{user.id}}' method='post' encType="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="profileModalLabel">Upload a Profile Picture!
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Upload a file</label>
+                                            <input class="form-control" type="file" id="formFile" name="profileFile">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="card mb-3 my-2 mx-auto" style="max-width: 75%;">
+        {{#each user.pets as |pet| }}
+        <div class="row g-0">
+            <div class="col-md-4">
+                {{#if pet.picture_file_name}}
+                <img src="./uploads/pets/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
+                    alt="pet picture">
+                {{else}}
+                <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
+                {{/if}}
+            </div>
+            <div id="learn-more" class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{pet.pet_name}}</h1>
+                    <h3 class="card-title pb-1">Animal Type: {{pet.pet_animal}}</h3>
+                    <h3 class="card-title pb-1">Breed: {{pet.pet_breed}}</h3>
+                    {{!-- <h3 class="card-title pb-3">Fun Fact: fact</h3> --}}
+                </div>
+            </div>
+        </div></br>
+        {{/each}}
+    </div>
 </conatiner>

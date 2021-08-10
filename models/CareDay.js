@@ -29,6 +29,17 @@ CareDay.init(
         key: "id",
       },
     },
+    // day
+    day_of_care: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    // type of care for
+    // day
+    type_of_care: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,

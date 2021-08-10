@@ -1,10 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 require('dotenv').config();
 
 const path = require('path');
-const hbs = exphbs.create({ });
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers});
+
 const SequelizeStore = require('connect-session-sequelize')(expressSession.Store);
 
 const routes = require('./controllers');
@@ -30,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(expressSession(session));
+app.use(fileUpload({createParentPath: true}));
 
 app.use(routes);
 
