@@ -6,14 +6,19 @@
         </div>
         <div class="col-md-4 my-auto">
             <article id="small-article" class="text-center px-1 py-3">
-                <h2>All Of Your Pet Sitting Needs!
-                </h2>
+                <h2>All Of Your Pet Sitting Needs!</h2>
                 <a>Request a pet sitter or find a pet sitting job. We offer a secure network and reviews to ensure the
                     best experience. Check us out today!</a>
             </article>
-            <article id="learn-more" class="text-center py-5">
-                <h2>Learn More</h2>
-            </article>
+            {{#if loggedIn}}
+            <h2 id="learn-more" class="text-center py-5">
+                <a id="homepage-join-us" href="/profile">Your Profile</a>
+            </h2>
+            {{else}}
+            <h2 id="learn-more" class="text-center py-5">
+                <a id="homepage-join-us" href="/login">Join us!</a>
+            </h2>
+            {{/if}}
         </div>
     </div>
 </div>
@@ -28,12 +33,12 @@
 <div class="container-fluid px-0">
     <div class="row g-0">
         <div class="col-md-4 my-auto">
-            <article id="small-article" class="text-center py-5">
-                <h2>Request a pet sitter!</h2>
-            </article>
-            <article id="watch-pet" class="text-center py-5">
-                <h2>Watch someone's pet!</h2>
-            </article>
+            <h2 id="small-article" class="text-center my-0 py-5">
+                <a id="homepage-request-sitter" href="/calendar">Request a pet sitter!</a>
+            </h2>
+            <h2 id="watch-pet" class="text-center my-0 py-5">
+                <a id="homepage-watch-pet" href="/calendar">Watch someone's pet!</a>
+            </h2>
         </div>
         <div class="col-md-8">
             <img src="https://www.fetchpetcare.com/wp-content/uploads/2014/07/bigstock-152145332.jpg" class="img-fluid"
