@@ -82,12 +82,42 @@ router.post('/', (req, res) =>
         pet_id: 1
     }*/
     CareDay.create(req.body)
-        .then(dbCareDayData => res.json(dbCareDayData))
+        .then(() => res.redirect('/calendar'))
         .catch(err =>
         {
             console.log(err);
             res.status(500).json(err);
         });
+});
+
+// PUT /api/caredays/volunteer/1
+router.put('/volunteer/:id', (req, res) => 
+{
+    if (req.session)
+    {
+        CareDay.update({
+            user_id: req.session.user_id
+        },
+            {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(dbCareDayData =>
+            {
+                if (!dbCareDayData[0])
+                {
+                    res.status(404).json({ message: 'No care day found with this id' });
+                    return;
+                }
+                res.json({ careday: dbCareDayData, message: 'You are now volunteered!' });
+            })
+            .catch(err =>
+            {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    }
 });
 
 // PUT /api/caredays/1
@@ -97,6 +127,7 @@ router.put('/:id', (req, res) =>
     {
         pet_id: 1
     }*/
+    
     CareDay.update(req.body, {
         where: {
             id: req.params.id

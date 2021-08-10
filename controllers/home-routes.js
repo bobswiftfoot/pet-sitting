@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { User, Pet, CareDay } = require('../models');
+const { User, Pet, CareDay, Post, Comment } = require('../models');
+const sequelize = require('../config/connection');
 const withAuth = require('../utils/auth');
 
 router.get('/', (req, res) =>
@@ -29,7 +30,7 @@ router.get('/profile', withAuth, (req, res) =>
             {
                 model: Pet,
                 as: 'pets',
-                attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed'],
+                attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed', 'picture_file_name'],
                 include: [
                     {
                         model: CareDay,
@@ -60,6 +61,7 @@ router.get('/profile', withAuth, (req, res) =>
 router.get('/calendar', withAuth, (req, res) =>
 {
     CareDay.findAll({
+        order:[['day_of_care', 'ASC']],
         include: [
             {
                 model: Pet,
@@ -81,9 +83,26 @@ router.get('/calendar', withAuth, (req, res) =>
     })
         .then(dbCareDayData => 
         {
-            const caredays = dbCareDayData.map(careday => careday.get({ plain: true }));
-            console.log(caredays);
-            res.render('calendar' ,{ caredays, loggedIn: req.session.loggedIn });
+            User.findAll({
+                where: {
+                    id: req.session.user_id
+                }, 
+                attributes: { exclude: ['password'] },
+                include: [
+                    {
+                        model: Pet,
+                        as: 'pets',
+                        attributes: ['id', 'pet_name', 'pet_animal', 'pet_breed'],
+                    }
+                ]
+            })
+            .then(dbUserData =>
+            {
+                const user = dbUserData.map(user => user.get({ plain: true }))[0];
+
+                const caredays = dbCareDayData.map(careday => careday.get({ plain: true }));
+                res.render('calendar' ,{ caredays, user, loggedIn: req.session.loggedIn });
+            })
         })
         .catch(err =>
         {
@@ -100,6 +119,39 @@ router.get('/edit-post', withAuth, (req, res) =>
 router.get('/single-post', withAuth, (req, res) =>
 {
     res.render('single-post' ,{ loggedIn: req.session.loggedIn });
+});
+
+router.get('/posts', withAuth, (req, res) =>
+{
+    Post.findAll(
+        {
+            include: [
+                {
+                    model: Comment,
+                    attributes: ['comment_text', 'created_at'],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['user_name']
+                        }
+                    ]
+                },
+                {
+                    model: User,
+                    attributes: ['user_name']
+                }
+            ]
+        })
+        .then(dbPostData => 
+        {
+            const posts = dbPostData.map(post => post.get({ plain: true }));
+            res.render('posts' ,{ posts, loggedIn: req.session.loggedIn });
+        })
+        .catch(err =>
+        {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 module.exports = router;
