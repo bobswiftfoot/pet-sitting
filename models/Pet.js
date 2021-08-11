@@ -32,10 +32,13 @@ Pet.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    picture_file_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+    profile_file_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "file",
+        key: "id",
+      }
+    }
   },
   {
     sequelize,

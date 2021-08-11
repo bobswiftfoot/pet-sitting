@@ -1,10 +1,13 @@
+<script src="/javascript/picture.js"></script>
 <conatiner class="container-fluid">
     <div class="card mb-3 mx-auto" style="max-width: 95%;">
         <div class="row g-0">
             <div class="col-md-4">
-                {{#if user.profileFile}}
-                <img src="./uploads/users/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
-                    alt="profile picture">
+                {{#if user.profile_file_id}}
+                <img class="img-fluid rounded-start" alt="profile picture" id="profilePicture"}}>
+                <script>
+                    getPicture("profilePicture", "{{{json user.profile_file_id}}}");
+                </script>
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
@@ -111,9 +114,11 @@
         {{#each user.pets as |pet| }}
         <div class="row g-0">
             <div class="col-md-4">
-                {{#if pet.picture_file_name}}
-                <img src="./uploads/pets/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
-                    alt="pet picture">
+                {{#if pet.profile_file_id}}
+                <img class="img-fluid rounded-start" alt="pet picture" id="pet-profile-picture{{pet.id}}">
+                <script>
+                    getPicture("pet-profile-picture{{pet.id}}", "{{{json pet.profile_file_id}}}");
+                </script>
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
