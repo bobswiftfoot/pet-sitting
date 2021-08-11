@@ -1,127 +1,241 @@
 * {
-    margin: 0;
+    margin: 0px 0px;
     padding: 0;
-}
-  
-body {
-    font-family: "Roboto Condensed";
-    height: 100vh;
+    box-sizing: border-box;
 }
 
-main {
-    height: 100vh;
+body {
+
+    font-family: "Roboto Condensed";
 }
+
 
 #title {
-    color: white;
-    font-family: "Style Script";
-    font-size: 110%;
+  color: white;
+  font-family: "Style Script";
+  font-size: 110%;
 }
 
-#header{
-    background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
+#header {
+  background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
+}
 
+.container {
+    position: relative;
+    min-height: 100vh;
+    padding: 0;
+    width: 100%;
+    margin: 0px 0px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
+    color: white;
 }
 
 /* homepage */
 
 #small-article {
+
     color: black;
     background-image: url("https://ak.picdn.net/shutterstock/videos/1937653/thumb/1.jpg");
+    height: 50%;
 }
 
 #learn-more {
     color: white;
     background-color: rgba(0, 13, 73, 0.7);
+    height: 50%
 }
 
 #about {
-    background-color: rgb(168, 255, 233);
+  background-color: rgb(168, 255, 233);
 }
 
 #watch-pet {
     color: white;
     background-image: url("https://www.welovesolo.com/wp-content/uploads/2016/11/43y3hub4k1nh321.png");
+    height: 50%
 }
 
 #homepage-join-us {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 #homepage-request-sitter {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 #homepage-watch-pet {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
-#footer {
-    background-image: url("https://i.pinimg.com/originals/51/29/09/512909d611a79db55653bb9fb1ee6ebd.png");
-    color: white;
+
+.imgOne{
+    height: 100%;
+    width: 100%;
 }
+
+.imgTwo{
+    height:100%;
+    width: 100%;
+
+}
+
+
+
 
 /* login page */
 
-#forms{
-    padding-top: 100px;
+#forms {
+  padding-top: 100px;
 }
 
 #sign-in {
-    background-color: rgba(0, 13, 73, 0.7);
-    color: white;
-    border: solid 3px rgb(168, 255, 233);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
+  background-color: rgba(0, 13, 73, 0.7);
+  color: white;
+  border: solid 3px rgb(168, 255, 233);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 }
 
 #buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 /* calendar page */
 
 #calendar-header {
-    color: white;
-    text-decoration: underline;
+  background-color: rgba(0, 13, 73);
+}
+
+#calendar-header-text {
+  color: white;
+  text-decoration: underline;
 }
 
 #request-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#request-modal:hover {
+  color: black;
+  background-image: url("https://ak.picdn.net/shutterstock/videos/1937653/thumb/1.jpg");
+}
+
+#forms {
+  margin-top: 200px;
+}
+
+#sign-in {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+#sign-in {
+  background-color: rgba(0, 13, 73, 0.7);
+  padding: 20px;
+  color: white;
+  border: solid 3px var(--secondary-color);
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+#calendar-span {
+
+  padding-bottom: 0px;
+}
+
+/* posts page */
+
+#post-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#post-modal:hover {
+    color: black;
+    background-color: rgb(168, 255, 233);
+}
+  
+#card-body {
+    color: black;
+}
+
+#delete-post-btn {
+  background-color: #f5f5f5;
+}
+
+#delete-post-btn:hover {
+  background-color: #d4d4d4;
+}
+
+#post {
+  margin-bottom: 2%;
+  line-height: 15%;
+}
+
+#post #title span {
+  font-style: italic;
+  font-size: 90%;
+  color: rgba(0, 13, 73);
+}
+
+/* comment page */
+
+#comment-modal {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#request-modal:hover {
+#comment-modal:hover {
     color: black;
-    background-image: url("https://ak.picdn.net/shutterstock/videos/1937653/thumb/1.jpg");
+    background-color: rgb(168, 255, 233);
 }
 
-#forms {
-    margin-top: 200px;
+#comment-form {
+  margin-bottom: 5%;
 }
 
-#sign-in {
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: flex-start;
+#comment {
+  padding: 1%;
+  margin-bottom: 1%;
 }
 
-#sign-in {
-    background-color: rgba(0, 13, 73, 0.7);
-    padding: 20px;
-    color: white;
-    border: solid 3px var(--secondary-color);
-    width: 30%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
+#comment:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+#comment #meta {
+  font-size: 90%;
+  margin-bottom: 0.5%;
+  opacity: 0.6%;
+}
+
+#new-post-form {
+  width: 300px;
+}
+
+#edit-post-form {
+  margin-bottom: 5%;
+
 }

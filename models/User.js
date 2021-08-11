@@ -38,8 +38,12 @@ User.init(
         len: [4],
       },
     },
-    profileFile: {
-      type: DataTypes.STRING,
+    profile_file_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "file",
+        key: "id",
+      }
     }
   },
   // set up beforeCreate lifecycle "hook" functionality

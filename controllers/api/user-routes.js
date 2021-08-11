@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const fs = require('fs');
-const { User, Pet, CareDay } = require('../../models');
+const { User, Pet, CareDay, File } = require('../../models');
+const upload = require('../../config/multer.js');
 
 // GET /api/users
 router.get('/', (req, res) =>
@@ -218,67 +219,52 @@ router.delete('/:id', (req, res) =>
         });
 });
 
-router.post('/upload/:id', (req, res) =>
+router.post('/upload/:id', upload.single("profileFile"), (req, res) =>
 {
     //Check to see if any files were sent
-    if (!req.files || Object.keys(req.files).length === 0) 
+    if (!req.file || Object.keys(req.file).length === 0) 
     {
         return res.status(400).send('No files were uploaded.');
     }
 
-    //Create the upload path
-    let profileFile = req.files.profileFile;
-    let uploadPath = __dirname.replace("controllers\\api", "");
-    uploadPath += `public\\uploads\\users\\${req.params.id}\\`;
-
-    //Remove the previous directory and pictures so we don't fill up the server
-    fs.rmdir(uploadPath, { recursive:true }, (err) =>
+    File.create(
     {
-        if (err)
-        {
-            console.log(err);
-            return res.status(500).send(err);
-        }
-        uploadPath += profileFile.name;
-
-        // Save the picture
-        profileFile.mv(uploadPath, function (err) 
-        {
-            if (err)
+		type: req.file.mimetype,
+		name: req.file.originalname,
+		data: req.file.buffer
+	})
+    .then((dbFileData) => 
+    {
+        //Save the file name to the database
+        User.update(
+            {
+                profile_file_id: dbFileData.dataValues.id
+            },
+            {
+                where:
+                {
+                    id: req.params.id
+                }
+            })
+            .then(dbUserData =>
+            {
+                console.log(dbUserData);
+                if (!dbUserData[0])
+                {
+                    res.status(404).json({ message: 'No user found with this id' });
+                    return;
+                }
+                //Return to the profile page
+                res.redirect('/profile');
+            })
+            .catch(err =>
             {
                 console.log(err);
-                return res.status(500).send(err);
-            }
+                res.status(500).json(err);
+            });
+	})
 
-            //Save the file name to the database
-            User.update(
-                {
-                    profileFile: profileFile.name
-                },
-                {
-                    where:
-                    {
-                        id: req.params.id
-                    }
-                })
-                .then(dbUserData =>
-                {
-                    console.log(dbUserData);
-                    if (!dbUserData[0])
-                    {
-                        res.status(404).json({ message: 'No user found with this id' });
-                        return;
-                    }
-                    //Return to the profile page
-                    res.redirect('/profile');
-                })
-                .catch(err =>
-                {
-                    console.log(err);
-                    res.status(500).json(err);
-                });
-        });
-    });
+            
 
 });
 

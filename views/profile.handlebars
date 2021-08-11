@@ -1,10 +1,13 @@
+<script src="/javascript/picture.js"></script>
 <conatiner class="container-fluid">
     <div class="card mb-3 mx-auto" style="max-width: 95%;">
         <div class="row g-0">
             <div class="col-md-4">
-                {{#if user.profileFile}}
-                <img src="./uploads/users/{{user.id}}/{{user.profileFile}}" class="img-fluid rounded-start"
-                    alt="profile picture">
+                {{#if user.profile_file_id}}
+                <img class="img-fluid rounded-start" alt="profile picture" id="profilePicture"}}>
+                <script>
+                    getPicture("profilePicture", "{{{json user.profile_file_id}}}");
+                </script>
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
@@ -13,8 +16,10 @@
                 <div class="card-body">
                     <h1 class="card-title pb-4">{{user.user_name}}</h1>
                     <h3 class="card-title pb-1">Email: {{user.email}}</h3>
-                    <h3 class="card-title pb-5">My Pets: {{#each user.pets as |pet| }}
-                        {{pet.pet_name}}{{/each}}</h3>
+                    <h3 class="card-title pb-5">My Pets: </br>
+                        {{#each user.pets as |pet| }}
+                        {{pet.pet_name}}</br>
+                        {{/each}}</h3>
 
                     <!-- Button to add pet and trigger modal -->
                     <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
@@ -109,9 +114,11 @@
         {{#each user.pets as |pet| }}
         <div class="row g-0">
             <div class="col-md-4">
-                {{#if pet.picture_file_name}}
-                <img src="./uploads/pets/{{pet.id}}/{{pet.picture_file_name}}" class="img-fluid rounded-start"
-                    alt="pet picture">
+                {{#if pet.profile_file_id}}
+                <img class="img-fluid rounded-start" alt="pet picture" id="pet-profile-picture{{pet.id}}">
+                <script>
+                    getPicture("pet-profile-picture{{pet.id}}", "{{{json pet.profile_file_id}}}");
+                </script>
                 {{else}}
                 <img src="https://picsum.photos/id/237/400/300" class="img-fluid rounded-start" alt="profile picture">
                 {{/if}}
@@ -120,8 +127,67 @@
                 <div class="card-body">
                     <h1 class="card-title">{{pet.pet_name}}</h1>
                     <h3 class="card-title pb-1">Animal Type: {{pet.pet_animal}}</h3>
-                    <h3 class="card-title pb-1">Breed: {{pet.pet_breed}}</h3>
+                    <h3 class="card-title pb-1">Breed: 
+                        {{#if pet.pet_breed}}
+                        {{pet.pet_breed}}
+                        {{else}}
+                        N/A
+                        {{/if}}
+                        </h3>
                     {{!-- <h3 class="card-title pb-3">Fun Fact: fact</h3> --}}
+                    
+                    <button id="add-a-photo" type="button" class="btn btn-dark" data-bs-toggle="modal"
+                        data-bs-target="#editPetModal{{pet.id}}">Edit Pet Info</button>
+
+                    <!-- Edit Pet Modal -->
+                    <div class="modal fade" id="editPetModal{{pet.id}}" tabindex="-1" aria-labelledby="editPetModal{{pet.id}}Label"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="editPetModal{{pet.id}}Label">New Pet!
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form class="justify-content-start" ref='uploadForm' id='uploadForm' action='/api/pets/edit/{{pet.id}}'
+                                    method='post' encType="multipart/form-data">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="user_id" value="{{pet.user_id}}">
+                                        <h3>Pet Name:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" value="{{pet.pet_name}}"
+                                                aria-label="Pet Name" aria-describedby="basic-addon1" name="pet_name">
+                                        </div></br>
+                                        <h3>Animal Type:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" value="{{pet.pet_animal}}"
+                                                aria-label="Animal Type" aria-describedby="basic-addon1" name="pet_animal">
+                                        </div></br>
+                                        <h3>Pet Breed:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" value="{{pet.pet_breed}}"
+                                                aria-label="Pet Breed" aria-describedby="basic-addon1" name="pet_breed">
+                                        </div></br>
+                                        {{!-- <h3>Fun Fact:</h3>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" value={{pet.pet_fact}}
+                                                aria-label="Pet Facts" aria-describedby="basic-addon1" name="">
+                                        </div></br> --}}
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Edit picture:</label>
+                                            <input class="form-control" type="file" id="formFile" name="picture_file_name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-dark">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div></br>

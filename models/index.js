@@ -3,6 +3,7 @@ const Pet = require("./Pet");
 const CareDay = require("./CareDay");
 const Comment = require("./Comment");
 const Post = require("./Post");
+const File = require("./File");
 
 User.hasMany(Pet, {
   as: 'pets',
@@ -50,4 +51,12 @@ Post.hasMany(Comment, {
   foreignKey: "post_id",
 });
 
-module.exports = { User, Pet, CareDay, Comment, Post };
+File.hasOne(User, {
+  foreignKey: "user_id",
+})
+
+File.hasOne(Pet, {
+  foreignKey: "pet_id",
+})
+
+module.exports = { User, Pet, CareDay, Comment, Post, File };

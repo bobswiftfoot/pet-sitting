@@ -1,4 +1,4 @@
-{{> post-info post }}
+{{!-- {{> post-info post }}
 
 {{> comments post.comments}}
 
@@ -9,6 +9,101 @@
   <div>
     <button type="submit">Add Comment</button>
   </div>
-</form>
+</form> --}}
 
+<container class="container-fluid">
+  <div class="card mx-auto mt-1" style="width: 95%;">
+    <div id="card-body" class="card-body">
+      {{> post-info post}}
+    </div>
+  </div></br>
+
+  {{!--
+  {{#if posts.length}}
+  <div class="container-fluid">
+    <div id="forms" class="row justify-content-around px-5">
+      <div id="sign-in" class="col-md-4 mb-3">
+        <form class="new-post-form">
+          <h2 class="text-center">Your Posts</h2>
+          <ol>
+            {{#each posts as |post|}}
+            <li>
+              {{> post-info post}}
+              <a href="/edit-post/{{post.id}}" class="edit-link">Edit Review Post</a>
+            </li>
+            {{/each}}
+          </ol>
+        </form>
+      </div>
+    </div>
+  </div> --}}
+
+    <!-- Button trigger modal -->
+  <button id="comment-modal" type="button" class="btn btn-dark mx-auto" data-bs-toggle="modal"
+    data-bs-target="#commentRequestModal">
+    Comment!
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="commentRequestModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="justify-content-start" id='commentForm'>
+          <div class="modal-header">
+            <h5 class="modal-title" id="commentRequestModalLabel">Upload a comment!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h2><label for="comment-body">Comment</label></h2>
+            <div class="input-group">
+              <textarea id="comment-body" name="comment-body" class="form-control"
+                aria-label="With textarea">Comment Here</textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-dark">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div></br>
+
+  <div id="learn-more" class="card mx-auto" style="max-width: 95%;">
+    <h2 id="calendar-header" class="text-center">Comments</h2>
+    {{#if post.comments.length}}
+    {{#each post.comments as |comment|}}
+
+    <div class="card mx-auto mt-1" style="width: 95%;">
+      <div id="card-body" class="card-body">
+        {{> comments comment}}
+      </div>
+    </div></br>
+
+    {{/each}}
+    {{/if}}
+
+
+    {{!-- {{#if posts.length}}
+    <span id="calendar-span" class="border-bottom border-white">
+      <div class="row g-0 d-flex align-items-center">
+        <div id="forms" class="row justify-content-around px-5">
+          <div id="sign-in" class="col-md-4 mb-3">
+            <form class="new-post-form">
+              <ol>
+                {{#each posts as |post|}}
+                <li>
+                  {{> post-info post}}
+                  <a href="/edit-post/{{post.id}}" class="edit-link">Edit Review Post</a>
+                </li>
+                {{/each}}
+              </ol>
+            </form>
+          </div>
+        </div>
+      </div></br>
+    </span>
+    {{/if}} --}}
+  </div>
+</container>
 <script src="/javascript/comment.js"></script>
