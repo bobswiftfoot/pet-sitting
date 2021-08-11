@@ -199,6 +199,19 @@ footer {
   color: rgba(0, 13, 73);
 }
 
+/* comment page */
+
+#comment-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#comment-modal:hover {
+    color: black;
+    background-color: rgb(168, 255, 233);
+}
+
 #comment-form {
   margin-bottom: 5%;
 }
