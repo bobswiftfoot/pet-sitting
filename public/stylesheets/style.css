@@ -163,6 +163,12 @@ footer {
   padding-bottom: 0px;
 }
 
+/* posts page */
+
+#card-body {
+    color: black;
+}
+
 #delete-post-btn {
   background-color: #f5f5f5;
 }

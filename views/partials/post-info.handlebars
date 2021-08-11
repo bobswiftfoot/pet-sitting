@@ -1,4 +1,4 @@
-<article class="post">
+{{!-- <article class="post">
   <div class="title">
     {{debug this}}
     <h3>{{title}}</h3>
@@ -9,4 +9,11 @@
     <a href="/posts/{{id}}">{{comments.length}}
       {{format_plural "comment" comments.length}}</a>
   </div>
-</article>
+</article> --}}
+
+<h5 id="card-post-title" class="card-title">{{title}}</h5>
+<h6 class="card-subtitle mb-2 text-muted">by {{user.user_name}}</h6>
+<p class="card-text">{{post_body}}</p>
+<a href="/posts/{{id}}" class="card-link">{{comments.length}}
+  {{format_plural "comment" comments.length}}</a>
+<a href="/edit-post/{{id}}" class="card-link">Edit Review Post</a>
