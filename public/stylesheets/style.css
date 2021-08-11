@@ -89,13 +89,17 @@ footer {
 
 }
 
+/* profile page */
+#edit-pet-modal-content {
+    color: black;
+}
 
 
 
 /* login page */
 
 #forms {
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 #sign-in {
