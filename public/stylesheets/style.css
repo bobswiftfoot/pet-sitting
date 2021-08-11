@@ -163,6 +163,23 @@ footer {
   padding-bottom: 0px;
 }
 
+/* posts page */
+
+#post-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#post-modal:hover {
+    color: black;
+    background-color: rgb(168, 255, 233);
+}
+  
+#card-body {
+    color: black;
+}
+
 #delete-post-btn {
   background-color: #f5f5f5;
 }
@@ -180,6 +197,19 @@ footer {
   font-style: italic;
   font-size: 90%;
   color: rgba(0, 13, 73);
+}
+
+/* comment page */
+
+#comment-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#comment-modal:hover {
+    color: black;
+    background-color: rgb(168, 255, 233);
 }
 
 #comment-form {
