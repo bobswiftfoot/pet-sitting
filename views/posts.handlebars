@@ -1,41 +1,97 @@
-<div class="container-fluid">
-    <div id="forms" class="row justify-content-around px-5">
-        <div id="sign-in" class="col-md-4 mb-3">
-            <form class="new-post-form">
-                <h1 class="text-center">Create New Review Post</h1>
-    <div>
-      <label for="post-title">Title</label>
-      <input type="text" id="post-title" name="post-title">
+{{!-- <div class="container-fluid">
+  <div id="forms" class="row justify-content-around px-5">
+    <div id="sign-in" class="col-md-4 mb-3">
+      <form class="new-post-form">
+        <h1 class="text-center">Create New Review Post</h1>
+        <div>
+          <label for="post-title">Title</label>
+          <input type="text" id="post-title" name="post-title">
+        </div>
+        <div>
+          <label for="post-body">Contents</label>
+          <input id="post-body" name="post-body" />
+        </div>
+        <button type="submit" class="btn">Create</button>
+      </form>
     </div>
-    <div>
-      <label for="post-body">Contents</label>
-      <input id="post-body" name="post-body" />
-    </div>
-    <button type="submit" class="btn">Create</button>
-    </form>
-    </div>
-    </div>
-    </div>
+  </div>
+</div> --}}
 
+<container class="container-fluid"></container>
+<!-- Button trigger modal -->
+<button id="request-modal" type="button" class="btn btn-dark mx-auto" data-bs-toggle="modal"
+  data-bs-target="#newRequestModal">
+  Post!
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="newRequestModal" tabindex="-1" aria-labelledby="newRequestModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="justify-content-start" id='uploadForm'>
+        <div class="modal-header">
+          <h5 class="modal-title" id="newRequestModalLabel">Create a new post!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h2><label for="post-title"></label>Title</label></h2>
+          <input type="text" id="post-title" name="post-title"></br>
+          <h2><label for="post-body">Content</label></h2>
+          <input id="post-body" name="post-body" /></br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div></br>
+
+{{!-- 
 {{#if posts.length}}
 <div class="container-fluid">
-    <div id="forms" class="row justify-content-around px-5">
-        <div id="sign-in" class="col-md-4 mb-3">
+  <div id="forms" class="row justify-content-around px-5">
+    <div id="sign-in" class="col-md-4 mb-3">
+      <form class="new-post-form">
+        <h2 class="text-center">Your Posts</h2>
+        <ol>
+          {{#each posts as |post|}}
+          <li>
+            {{> post-info post}}
+            <a href="/edit-post/{{post.id}}" class="edit-link">Edit Review Post</a>
+          </li>
+          {{/each}}
+        </ol>
+      </form>
+    </div>
+  </div>
+</div> --}}
+
+<div id="learn-more" class="card mx-auto" style="max-width: 95%;">
+  <span id="calendar-span" class="border-bottom border-white">
+    <div class="row g-0 d-flex align-items-center">
+      {{#if posts.length}}
+      <div class="container-fluid">
+        <div id="forms" class="row justify-content-around px-5">
+          <div id="sign-in" class="col-md-4 mb-3">
             <form class="new-post-form">
-                <h2 class="text-center">Your Posts</h2>
-  <ol>
-    {{#each posts as |post|}}
-    <li>
-      {{> post-info post}}
-      <a href="/edit-post/{{post.id}}" class="edit-link">Edit Review Post</a>
-      </li>
-      {{/each}}
-  </ol>
-</form>
-    </div>
-    </div>
-    </div>
-    {{/if}}
-
-
+              <h2 class="text-center">Your Posts</h2>
+              <ol>
+                {{#each posts as |post|}}
+                <li>
+                  {{> post-info post}}
+                  <a href="/edit-post/{{post.id}}" class="edit-link">Edit Review Post</a>
+                </li>
+                {{/each}}
+              </ol>
+            </form>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div></br>
+  </span>
+</div>
+</container>
 <script src="/javascript/add-post.js"></script>
