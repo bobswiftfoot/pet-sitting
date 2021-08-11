@@ -1,6 +1,5 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 require('dotenv').config();
 
@@ -33,7 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(expressSession(session));
-app.use(fileUpload({createParentPath: true}));
 
 app.use(routes);
 

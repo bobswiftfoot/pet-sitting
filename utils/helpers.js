@@ -27,4 +27,8 @@ module.exports = {
     }
     return word;
   },
+  json: (content) =>
+  {
+    return JSON.stringify(content);
+  }
 };
