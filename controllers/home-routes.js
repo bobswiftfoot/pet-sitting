@@ -36,6 +36,7 @@ router.get("/profile", withAuth, (req, res) =>
                     "pet_animal",
                     "pet_breed",
                     "picture_file_name",
+                    "user_id"
                 ],
                 include: [
                     {
