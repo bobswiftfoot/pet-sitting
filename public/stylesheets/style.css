@@ -165,6 +165,17 @@ footer {
 
 /* posts page */
 
+#post-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#post-modal:hover {
+    color: black;
+    background-color: rgb(168, 255, 233);
+}
+  
 #card-body {
     color: black;
 }
