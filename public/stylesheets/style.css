@@ -100,7 +100,7 @@ footer {
 /* login page */
 
 #forms {
-  /* padding-top: 100px; */
+  padding-top: 15%;
 }
 
 #sign-in {
@@ -139,9 +139,9 @@ footer {
   background-image: url("https://ak.picdn.net/shutterstock/videos/1937653/thumb/1.jpg");
 }
 
-#forms {
+/* #forms {
   margin-top: 200px;
-}
+} */
 
 #sign-in {
   background-size: cover;
