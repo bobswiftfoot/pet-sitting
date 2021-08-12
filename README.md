@@ -1,6 +1,5 @@
 # Pet Sitting
-Interactive Full-Stack Project
-Coding Bootcamp Weeks 15 & 16
+The most amazing app for all of your pet needs!
 
 ## Purpose
 AS A pet owner
@@ -29,7 +28,8 @@ I can add, edit, and delete posts with images of my pet and reviews of my expero
 * Insomnia
 * Heroku
 * MVC
+* Multer
 
 ## Contribution
-Made with ❤️ by Team Rock$tars (Samantha Malone, Nathan Pfu, and Chris Rose)
+Made with ❤️ by Team Rock$tars (Samantha Malone, Nathan Pfau, and Chris Rose)
 © 2021 Team Rock$tars. All rights reserved.
