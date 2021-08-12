@@ -57,9 +57,9 @@ footer {
 }
 
 #watch-pet {
-    color: white;
     background-image: url("https://www.welovesolo.com/wp-content/uploads/2016/11/43y3hub4k1nh321.png");
-    height: 50%
+    height: 50%;
+    align-items: center;
 }
 
 #homepage-join-us {
@@ -69,12 +69,13 @@ footer {
 
 #homepage-request-sitter {
   color: black;
+  opacity: 1;
   text-decoration: none;
 }
 
 #homepage-watch-pet {
-  color: white;
-  text-decoration: none;
+    color: rgb(255, 157, 92);
+    text-decoration: none;
 }
 
 
