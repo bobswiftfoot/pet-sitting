@@ -125,13 +125,25 @@ main {
   padding: 20px;
   color: white;
   border: solid 3px var(--secondary-color);
-  width: 30%;
+  /* width: 30%; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }
 
 #calendar-span {
   padding-bottom: 0px;
+}
+
+.table-wrapper {
+  min-width: 400px;
+}
+
+.mx-0 {
+  width: 20%;
+}
+
+.table-date {
+  overflow-x: scroll;
 }
 
 #delete-post-btn {
