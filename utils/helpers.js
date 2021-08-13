@@ -11,10 +11,6 @@ module.exports = {
       console.log(optionalValue);
     }
   },
-  formatDate: (date) => {
-    let dateFormat = date.split("-");
-    return dateFormat[1] + "/" + dateFormat[2] + "/" + dateFormat[0];
-  },
   // adding format date helper
   format_date: (date) => {
     return `${new Date(date).getMonth() + 1}/${new Date(

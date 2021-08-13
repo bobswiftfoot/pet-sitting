@@ -47,27 +47,27 @@
 
     <div id="learn-more" class="card mx-auto" style="max-width: 95%;">
         <div id="calendar-header" class="row g-0">
-            <div class="col-md-2 mx-0">
+            <div class="col-sm-2 mx-0">
                 <div class="card-body">
                     <p id="calendar-header-text" class="text-center card-text">Pet Name</p>
                 </div>
             </div>
-            <div class="col-md-2 mx-0">
+            <div class="col-sm-2 mx-0">
                 <div class="card-body">
                     <p id="calendar-header-text" class="text-center card-text">Date</p>
                 </div>
             </div>
-            <div class="col-md-2 mx-0">
+            <div class="col-sm-2 mx-0">
                 <div class="card-body">
                     <p id="calendar-header-text" class="text-center card-text">Type of Care</p>
                 </div>
             </div>
-            <div class="col-md-2 mx-0">
+            <div class="col-sm-2 mx-0">
                 <div class="card-body">
                     <p id="calendar-header-text" class="text-center card-text">Owner</p>
                 </div>
             </div>
-            <div class="col-md-2 mx-0">
+            <div class="col-sm-2 mx-0">
                 <div class="card-body">
                     <p id="calendar-header-text" class="text-center card-text">Sitter</p>
                 </div>
@@ -85,27 +85,27 @@
         {{#each caredays as |careday| }}
         <span id="calendar-span" class="border-bottom border-white">
             <div class="row g-0 d-flex align-items-center">
-                <div class="col-md-2 mx-0">
+                <div class="col-sm-2 mx-0">
                     <div class="card-body pt-5">
                         <p class="text-center card-text">{{careday.requested_care_days.pet_name}}</p>
                     </div>
                 </div>
-                <div class="col-md-2 mx-0">
+                <div class="col-sm-2 mx-0">
                     <div class="card-body pt-5">
-                        <p class="text-center card-text">{{careday.day_of_care}}</p>
+                        <p class="text-center card-text">{{format_date careday.day_of_care}}</p>
                     </div>
                 </div>
-                <div class="col-md-2 mx-0">
+                <div class="col-sm-2 mx-0">
                     <div class="card-body pt-5">
                         <p class="text-center card-text">{{careday.type_of_care}}</p>
                     </div>
                 </div>
-                <div class="col-md-2 mx-0">
+                <div class="col-sm-2 mx-0">
                     <div class="card-body pt-5">
                         <p class="text-center card-text">{{careday.requested_care_days.owner.user_name}}</p>
                     </div>
                 </div>
-                <div class="col-md-2 mx-0">
+                <div class="col-sm-2 mx-0">
                     {{#if careday.sitting_days}}
                     <div class="card-body pt-5">
                         <p class="text-center card-text">{{careday.sitting_days.user_name}}</p>
@@ -116,7 +116,7 @@
                     </div>
                     {{/if}}
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-2">
                     {{#unless careday.sitting_days}}
                     <div class="card-body pt-5 d-flex justify-content-center">
                         <button class="btn btn-outline-light me-2 volunteer-btn" type="button"
